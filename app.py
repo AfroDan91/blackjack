@@ -5,7 +5,7 @@ spades = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "sj", "sq
 clubs = ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "cj", "cq", "ck"]
 hearts = ["h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8", "h9", "h10", "hj", "hq", "hk"]
 diamonds = ["d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8", "d9", "d10", "dj", "dq", "dk"]
-deck = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "sj", "sq", "sk", "c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "cj", "cq", "ck","h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8", "h9", "h10", "hj", "hq", "hk","d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8", "d9", "d10", "dj", "dq", "dk"]
+deck = ["♠1", "♠2", "♠3", "♠4", "♠5", "♠6", "♠7", "♠8", "♠9", "♠10", "♠j", "♠q", "♠k", "♣1", "♣2", "♣3", "♣4", "♣5", "♣6", "♣7", "♣8", "♣9", "♣10", "♣j", "♣q", "♣k","♥1", "♥2", "♥3", "♥4", "♥5", "♥6", "♥7", "♥8", "♥9", "♥10", "♥j", "♥q", "♥k","♦1", "♦2", "♦3", "♦4", "♦5", "♦6", "♦7", "♦8", "♦9", "♦10", "♦j", "♦q", "♦k"]
 burned = []
 playersCards = []
 pcCards = []
@@ -38,35 +38,35 @@ def readCard(card):                                 #to read a card
 
 
 def playAgain():
-    response = input("Would you like to play another hand? (y)es or (n)o ")
-    global playAnother
-    if response.lower() == "yes" or response.lower() == "y":
-        playAnother = True
-    else:
-        playAnother = False
+    response = input("Would you like to play another hand? (y)es or (n)o ")     #offer the option to play again 
+    global playAnother                                                          #import the global bool playAnother
+    if response.lower() == "yes" or response.lower() == "y":                    #if player wants to play another hand...
+        playAnother = True                                                      #set playAnother to true
+    else:                                                                       #if not
+        playAnother = False                                                     #set playAnother to false
 
 
 def resetGame():
-    global deck
-    global burned
-    global playersCards
-    global pcCards
-    global playerTotal
-    global pcTotal
-    global playerPlaying
-    global pcPlaying
-    global playerBusted
-    global pcBusted
-    deck = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "sj", "sq", "sk", "c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "cj", "cq", "ck","h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8", "h9", "h10", "hj", "hq", "hk","d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8", "d9", "d10", "dj", "dq", "dk"]
-    burned = []
-    playersCards = []
-    pcCards = []
-    playerTotal = 0
-    pcTotal = 0
-    playerPlaying = True
-    pcPlaying = True
-    playerBusted = False
-    pcBusted = False
+    global deck             #   ┐
+    global burned           #   |
+    global playersCards     #   |
+    global pcCards          #   |
+    global playerTotal      #   | import global variables
+    global pcTotal          #   |
+    global playerPlaying    #   |
+    global pcPlaying        #   |
+    global playerBusted     #   |
+    global pcBusted         #   ┘
+    deck = ["♠1", "♠2", "♠3", "♠4", "♠5", "♠6", "♠7", "♠8", "♠9", "♠10", "♠j", "♠q", "♠k", "♣1", "♣2", "♣3", "♣4", "♣5", "♣6", "♣7", "♣8", "♣9", "♣10", "♣j", "♣q", "♣k","♥1", "♥2", "♥3", "♥4", "♥5", "♥6", "♥7", "♥8", "♥9", "♥10", "♥j", "♥q", "♥k","♦1", "♦2", "♦3", "♦4", "♦5", "♦6", "♦7", "♦8", "♦9", "♦10", "♦j", "♦q", "♦k"]
+    burned = []             #   ┐
+    playersCards = []       #   |
+    pcCards = []            #   |
+    playerTotal = 0         #   |
+    pcTotal = 0             #   |reset the gamestate to default
+    playerPlaying = True    #   |
+    pcPlaying = True        #   |
+    playerBusted = False    #   |
+    pcBusted = False        #   ┘
 
 
 #game Starts
@@ -87,101 +87,86 @@ while playAnother == True:
     pcHand = ', '.join(str(card) for card in pcCards)   #turns the list of cards into a string
 
 
-    # prompt payer for action stick or twist
-    while playerPlaying == True:
-        action = input("Would you like to (s)tick or (t)wist? ")
+    ## PLAYER'S TURN ##
+    while playerPlaying == True:                                                            #While its the player's turn
+        action = input("Would you like to (s)tick or (t)wist? ")                            #Ask the player if they want to stick or twist
 
-        if action.lower() == "t" or action.lower() == "twist" or action.lower() == "hit":
-            chosenCard = drawCard(playersCards)
-            playerTotal += chosenCard[1]
-            print(f"You have drawn {chosenCard[0]}")
-            print(f"Your hand value is {playerTotal}")            
-        else:
-            playerPlaying = False
-
-
-        if playerTotal > 21:
-            playerPlaying = False
-            playerBusted = True
-            print(f"Your hand value is {playerTotal}. BUSTED")
-        elif playerTotal == 21:
-            print(f"Your hand value is {playerTotal}!")
-            playerPlaying = False
+        if action.lower() == "t" or action.lower() == "twist" or action.lower() == "hit":   #if the action is twist
+            chosenCard = drawCard(playersCards)                                             #Pick a card and return the card and its value
+            playerTotal += chosenCard[1]                                                    #add the cards value to the player's total hand value
+            print(f"You have drawn {chosenCard[0]}")                                        #tell the player the drawn card
+            print(f"Your hand value is {playerTotal}")                                      #tell the player their total hand value
+        else:                                                                               #if the input is anything other than twist consider it a stick.
+            playerPlaying = False                                                           #set playerPlaying to false to break the while loop
 
 
-    t.sleep(2)
-    print("\nIts now the dealers turn")
-    t.sleep(1)
-    print(f"\nThe dealer drew {pcHand}")
-    print(f"Their hand value is {pcTotal}")
-    t.sleep(3)
+        if playerTotal > 21:                                                                #if the player's hand value goes over 21
+            playerPlaying = False                                                           #stop the player from playing
+            playerBusted = True                                                             #set playerBusted to true
+            print(f"Your hand value is {playerTotal}. BUSTED")                              #tell the player they have busted their hand
+        elif playerTotal == 21:                                                             #if the player's hand reaches 21
+            print(f"Your hand value is {playerTotal}!")                                     #tell them their hand value
+            playerPlaying = False                                                           #stop the player from playing
 
-    while pcPlaying == True:
-        if pcTotal >= 17:
-            pcPlaying = False
-            if pcTotal > 21:
-                pcBusted = True
-                print("The Dealer BUSTED!")
-        else:        
-            print("\nThe Dealer will take a card")
-            t.sleep(1)
-            chosenCard = drawCard(pcCards)
-            pcTotal += chosenCard[1] 
-            print(f"The Dealer drew the {chosenCard[0]}")
-            t.sleep(1)
-            print(f"The Dealer's hand value is {pcTotal}")
-            t.sleep(3)
+## DEALER'S TURN ##
+    t.sleep(2)                                  #sleep the script
+    print("\nIts now the dealers turn")         #confirm it's now the Dealer's turn
+    t.sleep(1)                                  #sleep the script
+    print(f"\nThe dealer drew {pcHand}")        #show the player the dealer's hand
+    print(f"Their hand value is {pcTotal}")     #tell the player the Dealer's hand value
+    t.sleep(3)                                  #sleep the script
 
+    while pcPlaying == True:                                    #While its the Dealer's turn
+        if pcTotal >= 17:                                       #If the Dealer's hand is 17 or more
+            pcPlaying = False                                   #the Dealer stops playing
+            if pcTotal > 21:                                    #if the Dealer's hand is over 21
+                pcBusted = True                                 #set pcBusted to true
+                print("The Dealer BUSTED!")                     #tell the player that the dealer has busted their hand
+        else:                                                   #If the dealer's hand is < 17
+            print("\nThe Dealer will take a card")              #confirm the dealer will take a card
+            t.sleep(1)                                          #sleep the script
+            chosenCard = drawCard(pcCards)                      #Pick a card and return the card and its value
+            pcTotal += chosenCard[1]                            #add the cards value to the dealer's hand value
+            print(f"The Dealer drew the {chosenCard[0]}")       #tell the player the drawn card
+            t.sleep(1)                                          #sleep the script
+            print(f"The Dealer's hand value is {pcTotal}")      #tell the player the dealer's hand value
+            t.sleep(3)                                          #sleep the script
 
-    while pcPlaying == False and playerPlaying == False:
-        if playerTotal > pcTotal and playerTotal < 22:
-            wins += 1
-            gamesPlayed += 1
-            print(f"You win this had! Well done. That makes {wins} wins and {losses} losses.")
-            resetGame()
-            playAgain()
+## WHEN BOTH THE DEALER AND PLAYER HAVE HAD THEIR TURNS##
+    while pcPlaying == False and playerPlaying == False:                                            #While nether player are playing...
+        if playerTotal > pcTotal and playerTotal < 22:                                              #If the playerTotal higher than the dealer's and the hand isn't bust...
+            wins += 1                                                                               #add a win to the wins total
+            gamesPlayed += 1                                                                        #add a game to the games played total
+            print(f"You win this had! Well done. That makes {wins} wins and {losses} losses.")      #tell the player they have won
+            resetGame()                                                                             #reset the game to initial settings
+            playAgain()                                                                             #ask the player if they would like to play again.
 
+        elif pcBusted == True and playerBusted == False:                                            #however if tge dealer is bust and the player isn't...
+            wins += 1                                                                               #add a win to the wins total
+            gamesPlayed += 1                                                                        #add a game to the games played total
+            print(f"You win this had! Well done. That makes {wins} wins and {losses} losses.")      #tell the player they have won
+            resetGame()                                                                             #reset the game to initial settings
+            playAgain()                                                                             #ask the player if they would like to play again.
 
-        elif pcBusted == True and playerBusted == False:
-            wins += 1
-            gamesPlayed += 1
-            print(f"You win this had! Well done. That makes {wins} wins and {losses} losses.")
-            resetGame()
-            playAgain()
- 
-        
-        elif playerTotal == pcTotal and playerBusted == False:
-            gamesPlayed += 1
-            print(f"Both the you and the Dealer have {playerTotal}. The hand is a tie.")
-            resetGame()
-            playAgain()
+        elif playerTotal == pcTotal and playerBusted == False:                                      #However if the player's hand value is the same as the Dealer's and nether are bust
+            gamesPlayed += 1                                                                        #add a game to the total games played
+            print(f"Both the you and the Dealer have {playerTotal}. The hand is a tie.")            #confirm a draw
+            resetGame()                                                                             #reset the game to initial settings
+            playAgain()                                                                             #ask the player if they would like to play again.
+            
+        else:                                                                                       #If none of the above are true
+            losses += 1                                                                             #add a game to the losses
+            gamesPlayed += 1                                                                        #add a game to the games played
+            print(f"\nThe house wins this time, Sorry. That is {wins} wins and {losses} losses.")   #tell the player they lost
+            resetGame()                                                                             #reset the game to initial settings
+            playAgain()                                                                             #ask the player if they would like to play again.
+              
 
-        
-        elif pcBusted == True and playerBusted == True or pcTotal > playerTotal and pcTotal < 22:
-            losses += 1
-            gamesPlayed += 1
-            print(f"The house wins this time, Sorry. That is {wins} wins and {losses} losses.")
-            resetGame()
-            playAgain()
-            deck = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "sj", "sq", "sk", "c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "cj", "cq", "ck","h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8", "h9", "h10", "hj", "hq", "hk","d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8", "d9", "d10", "dj", "dq", "dk"]
-
-
-        elif playerBusted == True and pcBusted == False:
-            losses += 1
-            gamesPlayed += 1
-            print(f"The house wins this time, Sorry. That is {wins} wins and {losses} losses.")
-            resetGame()
-            playAgain()
- 
-        
-
-        
-
-print("Thanks for playing Daniel's Blackjack")
-print("\n\nBreakdown:")
-print(f"You played {gamesPlayed} time and won {wins} hands, lost {losses} hands and tied {gamesPlayed - (wins + losses)} hands. ")
+print("\n\nThanks for playing Daniel's Blackjack!")
+print("Your performance breakdown:")
+print(f"You played {gamesPlayed} Hands and won {wins} of them, lost {losses} of them and tied {gamesPlayed - (wins + losses)} hands. ")
 if wins > losses:
-    print("You won more than you lost! Well done. Now you are ready to do it for real")
+    print("You won more than you lost! Well done. Now you are ready to do it for real.")
 else:
     print("Looks like you need a little more practice.")
 
