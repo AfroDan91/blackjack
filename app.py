@@ -1,8 +1,17 @@
 import random
 import time as t
 
+class Player():
+    def __init__(self, name):
+        self.name = name
+        self.handList = []
 
-class hand():
+        def createHand(self):
+            hand1 = hand()
+            self.handList.append(hand1)
+        createHand(self)
+
+class hand(Player):
     def __init__(self):
         shoe = []
         self.cardList = []
@@ -50,24 +59,29 @@ class hand():
 
 
 
-class Player(hand):
-    def __init__(self):
-        super().__init__()
-        self.name = "Dan"
-        self.handList = []
+
 
 # class Dealer(hand):
 
 
 #TESTING
-player1 = Player()
-player1.shoe = player1.createShoe(2)
-player1.drawCard(player1.shoe)
-player1.drawCard(player1.shoe)
+# player1 = Player()
+# player1.shoe = player1.createShoe(2)
+# player1.drawCard(player1.shoe)
+# player1.drawCard(player1.shoe)
 
-print(f"player name = {player1.name}")
-print(f"list of players hands = {player1.handList}")
-print(f"list of cards in players hand = {player1.cardList}")
-print(f"players hand value = {player1.handValue}")
-print(f"the entire shoe = {player1.shoe}")
-print(f"player busted status = {player1.bustedStatus}")
+# print(f"player name = {player1.name}")
+# print(f"list of players hands = {player1.handList}")
+# print(f"list of cards in players hand = {player1.cardList}")
+# print(f"players hand value = {player1.handValue}")
+# print(f"the entire shoe = {player1.shoe}")
+# print(f"player busted status = {player1.bustedStatus}")
+
+player1 = Player("Dan")
+player2 = Player("Dom")
+player1.handList[0].shoe = player1.handList[0].createShoe(2)
+print(player1.handList)
+
+player1.handList[0].drawCard(player1.handList[0].shoe)
+print(player1.handList[0].cardList)
+print(player2.handList[0].cardList)
